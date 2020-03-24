@@ -7,18 +7,6 @@
 
 {%- if grains.os not in ('MacOS', 'Windows') %}
 timezone_packages:
-  {#- Work around bug in Salt for certain platforms where symlink isn't available #}
-  {%- if not salt['file.file_exists'](timezone.path_localtime) %}
-  file.symlink:
-    - name: {{ timezone.path_localtime }}
-    - target: {{ timezone.path_zoneinfo }}{{ timezone.tz_UTC }}
-    - force: true
-    - require_in:
-      # Required for unattended installation of the timezone package
-      - pkg: timezone_packages
-      # Required for timezone comparison (symlink must be present for checking the current timezone)
-      - timezone: timezone_setting
-  {%- endif %}
   pkg.installed:
     - name: {{ timezone.pkg.name }}
     - require_in:
