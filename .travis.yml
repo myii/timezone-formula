@@ -18,6 +18,11 @@ services:
 ## Script to run for the test stage
 script:
   - bin/kitchen verify "${INSTANCE}"
+  - mkdir -p test/integration/default/files/_mapdata
+  - docker ps -a
+  - docker cp timezone-formula_debian-10_master_py3:/tmp/salt_mapdata_dump.yaml
+              test/integration/default/files/_mapdata/debian-10.yaml
+  - git status
 
 ## Stages and jobs matrix
 stages:
@@ -115,6 +120,13 @@ jobs:
         - export MAINTAINER_TOKEN=${GH_TOKEN}
         - go get github.com/myii/maintainer
         - maintainer contributor
+
+        # Testing...
+        - mkdir -p test/integration/default/files/_mapdata
+        - docker ps -a
+        - docker cp timezone-formula_debian-10_master_py3:/tmp/salt_mapdata_dump.yaml
+                    test/integration/default/files/_mapdata/debian-10.yaml
+        - git status
 
         # Install all dependencies required for `semantic-release`
         - npm i -D @semantic-release/changelog@3

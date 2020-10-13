@@ -1,4 +1,17 @@
 #!/bin/sh
+set -x
+
+###############################################################################
+# (0) ...
+###############################################################################
+pwd
+mkdir -p test/integration/default/files/_mapdata
+ls -alR test/integration/default
+sudo docker ps -a
+sudo docker cp timezone-formula_debian-10_master_py3:/tmp/salt_mapdata_dump.yaml \
+               test/integration/default/files/_mapdata/debian-10.yaml
+git status
+
 
 ###############################################################################
 # (A) Update `FORMULA` with `${nextRelease.version}`
