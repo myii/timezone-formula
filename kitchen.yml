@@ -15,6 +15,7 @@ platforms:
   - name: debian-10-master-py3
     driver:
       image: saltimages/salt-master-py3:debian-10
+      instance_name: timezone-formula_debian-10_master_py3
   - name: ubuntu-2004-master-py3
     driver:
       image: saltimages/salt-master-py3:ubuntu-20.04
