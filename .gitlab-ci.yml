@@ -49,6 +49,7 @@ variables:
 # `lint` stage: `commitlint`, `pre-commit` & `rubocop` (latest, failure allowed)
 ###############################################################################
 commitlint:
+  allow_failure: true
   stage: *stage_lint
   image: *image_commitlint
   script:
@@ -74,6 +75,7 @@ commitlint:
                   --verbose'
 
 pre-commit:
+  allow_failure: true
   stage: *stage_lint
   image: *image_precommit
   # https://pre-commit.com/#gitlab-ci-example
